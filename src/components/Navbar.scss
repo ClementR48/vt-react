@@ -1,0 +1,140 @@
+@import '../global.scss';
+
+.navbar{
+  height: 80px;
+  background-color: $secondBlackColor;
+  position: relative;
+  z-index: 100;
+
+  .title {
+    position: absolute;
+    height: 100%;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    a{
+      color: $yellowColor;
+      text-decoration: none;
+      
+    }
+
+    h1{
+      font-family: $secondFont;
+      font-size: 25px;
+      @include tablet{
+        font-size: 20px;
+      }
+    }
+  }
+
+  .profil-connect{
+    position: absolute;
+    top: 0;
+    bottom:0 ;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+
+    a{
+      font-family: $secondFont;
+      color: $yellowColor;
+      text-decoration: none;
+      
+      
+
+      @include desktop {
+        display: none;
+      }
+    }
+    
+
+    button {
+      font-family: $secondFont;
+      color: $yellowColor;
+      text-decoration: none;
+      background-color: transparent;
+      border: 1px solid $yellowColor;
+      border-radius: 50%;
+      padding: 10px;
+      display: none;
+      font-size: 16px;
+      cursor: pointer;
+
+      &:hover{
+        background-color: $yellowColor;
+        color: $secondBlackColor;
+        
+      }
+
+      @include desktop{
+        display: block;
+      }
+    }
+  }
+
+  .nav{
+    height: 100%;
+  
+    @include desktop{
+      display: none;
+    }
+    
+    ul{
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 100px;
+
+    
+
+      .link{
+        margin-left: 50px;
+
+        a{
+          position: relative;
+          text-decoration: none;
+          color: $whiteColor;
+          
+          &.active {
+            color: $yellowColor;
+          }
+          &:hover {
+            color: $yellowColor;
+          }
+          &::before{
+            content: "";
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: $yellowColor;
+            transition: 0.2s ease-in-out width;
+          }
+          &::after{
+            content: "";
+            position: absolute;
+            bottom: -100%;
+            right: 0;
+            width: 0%;
+            height: 2px;
+            background-color: $yellowColor;
+            transition: 0.2s ease-in-out width;
+          }
+
+          &:hover::before, &:hover::after,&.active::after, &.active::before{
+            width: 50%;
+          }
+        }
+      }
+    }
+
+  }
+
+
+}

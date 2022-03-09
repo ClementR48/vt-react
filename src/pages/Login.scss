@@ -1,0 +1,85 @@
+@import "../global.scss";
+
+.login_page {
+  width: 100vw;
+  height: 100vh;
+  background: url("../assets/padel_background_desktop.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  @include tablet {
+    background: url("../assets/padel_background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  @include mobile {
+    background: url("../assets/padel_background_mobile.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .title_login_page {
+    font-family: $secondFont;
+    font-size: 36px;
+    color: $yellowColor;
+    text-align: center;
+    padding: 5vh 0;
+    mix-blend-mode: difference;
+  }
+
+  .connexion {
+    padding: 10px;
+    background-color: $whiteColor;
+    height: 60vh;
+    max-width: 700px;
+    width: 90vw;
+    margin: 5vh auto 0;
+    border-radius: 10px;
+    border: 1px solid $yellowColor;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include mobile {
+      height: 50vh;
+    }
+
+    h3 {
+      height: 20%;
+      color: $secondBlackColor;
+    }
+
+    .connect {
+      height: 80%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-around;
+
+
+      div {
+        background-color: $secondBlackColor;
+        width: 90%;
+        height: 50px;
+        border-radius: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $blackColor;
+        }
+
+        p {
+          color: $whiteColor;
+        }
+      }
+    }
+  }
+}

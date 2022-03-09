@@ -1,0 +1,33 @@
+//Colors
+
+$greenColor: #cfdbd5;
+$whiteColor: #e8eddf;
+$yellowColor: #f5cb5c;
+$blackColor: #242423;
+$secondBlackColor: #333533;
+
+// Fonts
+
+$mainFont: "Rosario", sans-serif;
+$secondFont: "Rock Salt", cursive;
+
+
+// responsive 
+
+@mixin desktop {
+  @media screen and (max-width: 1200px) {
+    @content
+  }
+};
+
+@mixin tablet  {
+  @media screen and (max-width: 770px) {
+    @content
+  }
+};
+
+@mixin mobile {
+  @media screen and (max-width: 426px) {
+    @content
+  }
+};
