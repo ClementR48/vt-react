@@ -1,0 +1,55 @@
+@import '../global.scss';
+
+.form_list {
+  margin: 10px;
+  width: fit-content;
+  
+ 
+  
+  padding: 5px;
+
+
+  .input_style{
+    background-color: $secondBlackColor;
+    border-radius: 10px;
+    border: 1px solid $yellowColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 15px;
+  
+
+
+  input{
+    padding: 5px;
+     background-color: $blackColor;
+     border: none;
+     border-radius: 10px;
+     outline: none;
+     cursor: pointer;
+
+     &::-webkit-datetime-edit-text, &::-webkit-datetime-edit-month-field,&::-webkit-datetime-edit-day-field, &::-webkit-datetime-edit-year-field{
+       color: $whiteColor;
+     }
+
+     &::placeholder{
+       color: white;
+     }
+  }
+
+  button{
+    width: 50px;
+    
+    background-color: transparent;
+    margin-left: 5px;
+    cursor: pointer;
+    outline: none;
+    border: 1px solid $yellowColor;
+    border-radius: 10px;
+
+    &:hover {
+      background-color: $yellowColor;
+    }
+  }
+}
+}

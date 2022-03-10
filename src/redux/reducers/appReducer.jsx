@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-  openMenu: true,
+  openMenu: false,
   navlink: [
     { path: "/", value: "Evenement" },
     { path: "/create-event", value: "Créer ton évenement" },
