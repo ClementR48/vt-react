@@ -1,6 +1,27 @@
 @import "../global.scss";
 
 .list_event {
+
+  .noeventsearch {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $blackColor;
+    padding: 10px;
+    color: $whiteColor;
+    border-radius: 10px;
+    a{
+      margin-top: 20px;
+      text-decoration: none;
+      color: $yellowColor;
+      font-size: 22px;
+      transition: all 0.2s ease-in-out;
+      &:hover{
+        letter-spacing: 3px;
+      }
+    }
+  }
   
   margin: 50px;
 

@@ -1,15 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormList from "./FormList";
 import padelImg from "../assets/padel_raquette.png";
 import "./ListEvent.scss";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-const ListEvent = ({ event }) => {
+const ListEvent = () => {
   const [selectValue, setSelectValue] = useState("");
+
+  const eventState = useSelector((state) => state.eventReducer);
+
+  const [messageNoEvents, setMessageNoEvents] = useState(false);
+
+  const arr = eventState.listEvents.filter((e) => {
+    if (eventState.dateValue === "") {
+      return e;
+    } else if (e.date_event === eventState.dateValue) {
+      return e;
+    }
+  });
+
+  useEffect(() => {
+    if (arr.length === 0) {
+      setMessageNoEvents(true);
+    } else {
+      setMessageNoEvents(false);
+    }
+  }, [arr]);
 
   const nbStars = (nb) => {
     let arrStars = [];
     for (let s = 0; s < nb; s++) {
-      arrStars.push(<li>⭐</li>);
+      arrStars.push(<li key={s}>⭐</li>);
     }
     return arrStars;
   };
@@ -17,7 +39,7 @@ const ListEvent = ({ event }) => {
   const cityFunc = (city) => {
     let cityArr = [];
     for (let i = 0; i < city.length; i++) {
-      cityArr.push(<li>{city[i]}</li>);
+      cityArr.push(<li key={i}>{city[i]}</li>);
     }
     return cityArr;
   };
@@ -25,7 +47,11 @@ const ListEvent = ({ event }) => {
   const placeAvailable = (nb) => {
     let arrPlace = [];
     for (let i = 0; i < nb; i++) {
-      arrPlace.push(<option value={i + 1}>{i + 1}</option>);
+      arrPlace.push(
+        <option key={i} value={i + 1}>
+          {i + 1}
+        </option>
+      );
     }
     return arrPlace;
   };
@@ -46,13 +72,19 @@ const ListEvent = ({ event }) => {
   return (
     <div className="list_event">
       <FormList />
+      {messageNoEvents && (
+        <div className="noeventsearch">
+          <span>Il n'y pas d'évenement à cette date</span>
+          <Link to="/create-event">Créer ton évent !</Link>
+        </div>
+      )}
       <ul className="events">
-        {event.map((ev) => {
+        {arr.sort(function(a, b) { return a.date_event - b.date_event }).map((ev) => {
           return (
-            <li className="event">
+            <li key={ev.id} className="event">
               <div className="pictures">
                 <img src={imgSport(ev.sport_event)} alt="" />
-                <img src="http://placekitten.com/200/200" alt="" />
+                <img src="http://placekitten.com/200/200" alt="" /> 
               </div>
               <div className="informations">
                 <div className="person">
