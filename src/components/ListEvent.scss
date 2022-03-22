@@ -1,6 +1,9 @@
 @import "../global.scss";
 
 .list_event {
+  .complet {
+    text-align: center;
+  }
 
   .noeventsearch {
     display: flex;
@@ -11,24 +14,23 @@
     padding: 10px;
     color: $whiteColor;
     border-radius: 10px;
-    a{
+    a {
       margin-top: 20px;
       text-decoration: none;
       color: $yellowColor;
       font-size: 22px;
       transition: all 0.2s ease-in-out;
-      &:hover{
+      &:hover {
         letter-spacing: 3px;
       }
     }
   }
-  
+
   margin: 50px;
 
   @include tablet {
     margin: 5px 0;
   }
-  
 
   .events {
     display: flex;
@@ -43,6 +45,10 @@
       border-radius: 10px;
       list-style: none;
       margin: 50px;
+
+      &.full {
+        filter: grayscale(80%);
+      }
 
       @include mobile {
         margin: 30px 0;
@@ -143,10 +149,10 @@
             border: none;
             outline: none;
             cursor: pointer;
-            &.button_not{
+            &.button_not {
               cursor: not-allowed;
             }
-            &:hover{
+            &:hover {
               background-color: $secondBlackColor;
               color: $yellowColor;
             }
@@ -158,7 +164,7 @@
           align-items: center;
           justify-content: center;
 
-          select{
+          select {
             background-color: $yellowColor;
             outline: none;
             border: none;

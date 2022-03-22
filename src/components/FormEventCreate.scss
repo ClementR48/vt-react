@@ -1,0 +1,51 @@
+@import '../global.scss';
+
+.form-event-create {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $blackColor;
+  border-radius: 10px;
+  min-width: 300px;
+  max-width: 70vw;
+  margin: 0 auto;
+  padding: 20px;
+
+  label {
+    color: $yellowColor;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    max-width: 500px;
+    margin-bottom: 20px;
+
+    select, input{
+      border: none;
+      background-color: $secondBlackColor;
+      outline: none;
+      padding: 10px;
+      border-radius: 10px;
+      color: $whiteColor;
+      margin-top: 10px;
+    }
+  }
+
+  button {
+    padding: 5px; 
+    border: none;
+    outline: none;
+    background-color: $yellowColor;
+    color: $secondBlackColor;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 22px;
+    width: 50%;
+    margin-top: 20px;
+    transition: all 0.3s;
+
+    &:hover {
+      color: $yellowColor;
+      background-color: $secondBlackColor;
+    }
+  }
+}

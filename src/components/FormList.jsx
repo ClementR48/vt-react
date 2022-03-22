@@ -1,22 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./FormList.scss";
 
 const FormList = () => {
+  const [textSportValue, setTextSportValue] = useState("");
   const eventState = useSelector((state) => state.eventReducer);
   const dispatch = useDispatch();
 
   const changeInputValue = (value) => {
+    
     dispatch({
       type: "DATEVALUE",
       payload: value,
+    });
+  };
+  const changeSportInput = () => {
+    dispatch({
+      type: "SPORTFILTER",
+      payload: textSportValue,
     });
   };
 
   const changeEvents = (e) => {
     e.preventDefault();
   };
-
 
   return (
     <form className="form_list" onSubmit={(e) => changeEvents(e)}>
@@ -30,7 +37,18 @@ const FormList = () => {
           onChange={(e) => changeInputValue(e.target.value)}
         />
       </div>
-        <button onClick={() => changeInputValue('')}>Enlever filtre</button>
+      <label>
+        Recherche par date:
+        <input
+          type="text"
+          placeholder="Recherche par sport"
+          value={textSportValue}
+          onChange={(e) => setTextSportValue(e.target.value)}
+        />
+      </label>
+      <button onClick={() => changeSportInput()}>Valider</button>
+
+      <button onClick={() => changeInputValue("")}>Enlever filtre</button>
     </form>
   );
 };

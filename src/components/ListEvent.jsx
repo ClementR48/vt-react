@@ -1,32 +1,70 @@
 import React, { useEffect, useState } from "react";
 import FormList from "./FormList";
 import padelImg from "../assets/padel_raquette.png";
+import tennisImg from "../assets/tennis_raquette.jpg";
+import stadeImg from "../assets/stadeToulousain.png";
+import balmaImg from "../assets/padel_balma.png";
 import "./ListEvent.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const ListEvent = () => {
-  const [selectValue, setSelectValue] = useState("");
-
   const eventState = useSelector((state) => state.eventReducer);
 
+  const [nbPlaceTaken, setNbPlaceTaken] = useState(0);
+  const [listToDisplay, setListToDisplay] = useState(eventState.listEvents);
   const [messageNoEvents, setMessageNoEvents] = useState(false);
 
-  const arr = eventState.listEvents.filter((e) => {
-    if (eventState.dateValue === "") {
-      return e;
-    } else if (e.date_event === eventState.dateValue) {
-      return e;
-    }
-  });
+  
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (arr.length === 0) {
+    setListToDisplay(eventState.listEvents.filter((ev) => ev.date_event === eventState.dateValue))
+  }, [eventState.dateValue])
+
+  useEffect(() => {
+    setListToDisplay(eventState.listEvents);
+    
+  }, [eventState.listEvents]);
+
+  useEffect(() => {
+    if (eventState.sportInputValue !== "") {
+      
+      setListToDisplay(eventState.listEvents.filter(
+        (eve) => eve.sport_event === eventState.sportInputValue));
+    } else {
+      setListToDisplay(eventState.listEvents);
+    }
+  }, [eventState.sportInputValue]);
+
+  useEffect(() => {
+    if (listToDisplay.length === 0) {
       setMessageNoEvents(true);
     } else {
       setMessageNoEvents(false);
     }
-  }, [arr]);
+  }, [listToDisplay]);
+
+
+
+  const updateEvents = (id) => {
+    const indexEvent = eventState.listEvents.findIndex((ev) => ev.id === id);
+
+    const eventUpdate = {
+      ...eventState.listEvents[indexEvent],
+      nb_place_available:
+        eventState.listEvents[indexEvent].nb_place_available - nbPlaceTaken,
+    };
+
+    if (nbPlaceTaken !== "") {
+      dispatch({
+        type: "UPDATEEVENTS",
+        payload: eventUpdate,
+      });
+    }
+  };
+
 
   const nbStars = (nb) => {
     let arrStars = [];
@@ -56,11 +94,44 @@ const ListEvent = () => {
     return arrPlace;
   };
 
+
+
+  const handleChangePlace = (id, nbPlace) => {
+    
+
+  }
+
+  const imgClub = (club) => {
+    let url = "";
+    
+    switch (club) {
+      case 'Stade Toulousain':
+        url = stadeImg;
+        
+        break;
+
+
+      case 'Balma Tennis':
+        url = balmaImg;
+        break;
+
+      default:
+        url = "";
+        break
+    }
+
+    return url
+  }
+
   const imgSport = (sport) => {
     let url = "";
     switch (sport) {
       case "Padel":
         url = padelImg;
+        break;
+      
+      case "Tennis" : 
+        url = tennisImg;
         break;
       default:
         url = "";
@@ -68,6 +139,8 @@ const ListEvent = () => {
     }
     return url;
   };
+
+
 
   return (
     <div className="list_event">
@@ -79,12 +152,12 @@ const ListEvent = () => {
         </div>
       )}
       <ul className="events">
-        {arr.sort(function(a, b) { return a.date_event - b.date_event }).map((ev) => {
+        {listToDisplay.map((ev) => {
           return (
-            <li key={ev.id} className="event">
+            <li key={ev.id} className={ev.nb_place_available ? 'event' : 'event full'}>
               <div className="pictures">
                 <img src={imgSport(ev.sport_event)} alt="" />
-                <img src="http://placekitten.com/200/200" alt="" /> 
+                <img src={imgClub(ev.club_event)} alt="" />
               </div>
               <div className="informations">
                 <div className="person">
@@ -107,18 +180,21 @@ const ListEvent = () => {
                 </div>
                 <div className="modal">
                   <select
-                    onChange={(e) => setSelectValue(e.target.value)}
+                    onChange={(e) => setNbPlaceTaken(e.target.value)}
                     htmlFor="place"
                   >
                     <option value="">Nombre de places souhaitées</option>
                     {placeAvailable(ev.nb_place_available)}
                   </select>
                 </div>
-                <div className="button">
-                  <button className={selectValue === "" ? "button_not" : ""}>
+                {ev.nb_place_available !== 0 ?<div className="button">
+                  <button
+                    onClick={() => updateEvents(ev.id)}
+                    className={nbPlaceTaken === 0 ? "button_not" : ""}
+                  >
                     Participer
                   </button>
-                </div>
+                </div> : <p className="complet">Complet</p>}
               </div>
             </li>
           );
